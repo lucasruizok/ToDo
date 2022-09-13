@@ -16,22 +16,32 @@ const ToDo = () => {
   const [todos, setTodos] = useState(initialData);
 
   const handleStatus = (item) => {
-    // marcar como completada o no una tarea
-
+    setTodos(todos.map((todo)=>{
+      return todo.id === item.id ? {...todo, completed:!todo.completed} : {...todo};
+    }))
   };
-
+  
   const handleRemove = (item) => {
-    // eliminar una tarea
-
+    setTodos([...todos].filter(todo => todo.id != item.id));
   };
-
+  
   const handleAddTodo = () => {
-    // agregar una tarea
+    let newTodo = {id: +new Date(), title: addTodo, completed: false};
+    setTodos([...todos, newTodo]);
+    setAddTodo('');
   };
 
   const filterTodos = () => {
-    // filtrar tareas por completadas, no completadas, todas.
-    return todos
+    let filterTodosList = todos.filter(todo => {
+      if(filter === "complete"){
+        return todo.completed === true
+      } else if (filter === "incomplete"){
+        return todo.completed === false
+      } else {
+        return todo
+      }
+    })
+    return filterTodosList
   };
 
   const handleChange = (e) => {
@@ -39,7 +49,8 @@ const ToDo = () => {
   };
 
   const visibleTodos = filterTodos();
-  const doneCount = 0
+
+  let doneCount = 0
 
   return (
     <div>
@@ -53,6 +64,8 @@ const ToDo = () => {
           Add
         </button>
       </div>
+
+
       <div className="filter-wrapper">
         <div className="filter-tabs">
           <FilterButton
