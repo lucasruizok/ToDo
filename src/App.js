@@ -1,5 +1,5 @@
 import "./index.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ToDoItem from "./components/TodoItem";
 import FilterButton from "./components/FilterButton";
 
@@ -14,13 +14,23 @@ const ToDo = () => {
   const [addTodo, setAddTodo] = useState("");
   const [filter, setFilter] = useState("all");
   const [todos, setTodos] = useState(initialData);
+  const [doneCount, setDoneCount] = useState(0)
 
   const handleStatus = (item) => {
-    setTodos(todos.map((todo)=>{
-      return todo.id === item.id ? {...todo, completed:!todo.completed} : {...todo};
-    }))
+    const newTodos = [...todos];
+    const newTodo = newTodos.find((todo)=>{return todo.id === item.id});
+    newTodo.completed = !newTodo.completed; 
+    setTodos(newTodos);
   };
   
+  const count = () =>{
+    const newCount = todos.filter((item)=> item.completed).length;
+    setDoneCount(newCount);
+  }
+  useEffect(()=>{
+    count()
+  },[todos])
+
   const handleRemove = (item) => {
     setTodos([...todos].filter(todo => todo.id != item.id));
   };
@@ -50,8 +60,6 @@ const ToDo = () => {
 
   const visibleTodos = filterTodos();
 
-  let doneCount = 0
-
   return (
     <div>
       <div className="field">
@@ -64,8 +72,6 @@ const ToDo = () => {
           Add
         </button>
       </div>
-
-
       <div className="filter-wrapper">
         <div className="filter-tabs">
           <FilterButton
