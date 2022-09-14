@@ -14,7 +14,7 @@ const ToDo = () => {
   const [addTodo, setAddTodo] = useState("");
   const [filter, setFilter] = useState("all");
   const [todos, setTodos] = useState(initialData);
-  const [doneCount, setDoneCount] = useState(0)
+  const [doneCount, setDoneCount] = useState(0);
 
   const handleStatus = (item) => {
     const newTodos = [...todos];
@@ -28,7 +28,7 @@ const ToDo = () => {
     setDoneCount(newCount);
   }
   useEffect(()=>{
-    count()
+    count();
   },[todos])
 
   const handleRemove = (item) => {
@@ -44,14 +44,14 @@ const ToDo = () => {
   const filterTodos = () => {
     let filterTodosList = todos.filter(todo => {
       if(filter === "complete"){
-        return todo.completed === true
+        return todo.completed === true;
       } else if (filter === "incomplete"){
-        return todo.completed === false
+        return todo.completed === false;
       } else {
-        return todo
+        return todo;
       }
     })
-    return filterTodosList
+    return filterTodosList;
   };
 
   const handleChange = (e) => {
