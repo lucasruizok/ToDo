@@ -2,18 +2,19 @@ import React from "react";
 import '@testing-library/jest-dom/extend-expect';
 import { fireEvent, render } from "@testing-library/react";
 import ToDoForm from './TodoForm';
-describe("<TodoForm />", () => {
+describe("<TodoForm/>", () => {
     let component;
+    const mockHandler = jest.fn();
     beforeEach(()=>{
         component = render(
-        <ToDoForm/>
+        <ToDoForm handleAddTodo={mockHandler}/>
         );
     })
-    test("Debe mostrar una nueva tarea en la lista luego de presionar el boton Add", () =>{
+    test("Debe ejecutar la funcion handleAddTodo", () =>{
         const inputToDo = component.getByRole('textbox');
-        fireEvent.change(inputToDo, {target: {value: 'cocinar'}})
+        fireEvent.change(inputToDo, {target: {value: 'cocinar'}});
         const button = component.getByText("Add");
         fireEvent.click(button);
-        expect(component.getByText("cocinar")).toBeDefined();
+        expect(mockHandler.mock.calls).toHaveLength(1); 
     })
 })

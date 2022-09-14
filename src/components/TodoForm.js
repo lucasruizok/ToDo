@@ -1,24 +1,21 @@
 import { useState } from "react";
 
-const ToDoForm = ({ addTodo }) => {
-  
+const ToDoForm = ({ handleAddTodo }) => {
     const [newTodo, setNewTodo] = useState("");
     
     const handleChange = (e) => {
         setNewTodo(e.target.value);
     };
-    const handleAddTodo = () =>{
-        if(addTodo !==''){
-            addTodo(newTodo);
+    const handleAddNewTodo = () =>{
+            handleAddTodo(newTodo);
             setNewTodo('');
-        }
     };
     return (
         <div className="field">
             <input value={newTodo} onChange={handleChange} />
             <button
                 className="btn btn--add"
-                onClick={handleAddTodo}
+                onClick={handleAddNewTodo}
                 disabled={newTodo.length < 1}
             >
                 Add
