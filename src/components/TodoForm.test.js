@@ -1,13 +1,12 @@
 import React from "react";
 import '@testing-library/jest-dom/extend-expect';
 import { fireEvent, render } from "@testing-library/react";
-import App from "./App";
-
-describe("<App />", () => {
+import ToDoForm from './TodoForm';
+describe("<TodoForm />", () => {
     let component;
     beforeEach(()=>{
         component = render(
-        <App/>
+        <ToDoForm/>
         );
     })
     test("Debe mostrar una nueva tarea en la lista luego de presionar el boton Add", () =>{
