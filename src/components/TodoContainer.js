@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import ToDoItem from "./TodoItem";
 import FilterButton from "./FilterButton";
 import ToDoForm from "./TodoForm";
+import ToDoList from "./TodoList";
 
 const initialData = [
     { id: 1, title: "Lorem ipsum dolor sit amet", completed: false },
@@ -54,7 +54,7 @@ const ToDo = () => {
     const visibleTodos = filterTodos();
 
     return (
-        <div>
+        <>
             <h1>
                 <strong>ToDo</strong> List
             </h1>
@@ -83,21 +83,8 @@ const ToDo = () => {
                         : `${doneCount}/${todos.length} todos complete`}
                 </p>
             </div>
-            {visibleTodos.length === 0 && (
-                <p style={{ paddingLeft: "1rem" }}>No todos to show here...</p>
-            )}
-            {visibleTodos.length > 0 &&
-                visibleTodos.map((item, idx) => {
-                    return (
-                        <ToDoItem
-                            key={item.id}
-                            item={item}
-                            handleStatus={() => handleStatus(item)}
-                            handleRemove={() => handleRemove(item)}
-                        />
-                    );
-                })}
-        </div>
+            <ToDoList visibleTodos={visibleTodos} handleStatus= {handleStatus} handleRemove={handleRemove} />
+        </>
     );
 };
 
